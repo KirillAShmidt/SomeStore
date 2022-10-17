@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Product>
+
+@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Card";
+
+	decimal? total = 0;
+
+	foreach(var i in Model){
+		total += i.Price;
+	}
+}
+
+<div>
+	@if (Model != null)
+	{
+		<h1>Products in card:</h1>
+
+		<ul class="list-group list-group-flush">
+		@foreach (var item in Model)
+		{
+			<li class="list-group-item" style="display: flex; align-items: center; justify-content:space-between;">
+				<div>
+					@item.Name: @item.Price
+				</div>
+				<div>
+					<a asp-controller="Cart" asp-action="DeleteFromCart" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+				</div>
+			</li>
+		}
+		</ul>
+		<div class="card-footer">
+			Total: @total
+		</div>
+	}
+	else{
+		<h1>Cart is empty</h1>
+	}
+</div>

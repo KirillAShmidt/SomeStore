@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Product>
+
+@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Shop";
+}
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+	@foreach(var product in Model){
+		<div class="col">
+			<div class="card" style="width: 18rem; height: 22rem; ">
+				<img src="@product.Image" class="card-img-top" style="width: auto; height: 55%;">
+				<div class="card-body">
+					<h5 class="card-title" style="padding-left: 2%;">@product.Name</h5>
+					<p class="card-text" style="padding-left: 2%;">@product.Price</p>
+					<div style="display: flex; align-items: center; justify-content: space-between;">
+						<a asp-action="Product" asp-route-id="@product.Id" class="btn btn-primary">Show Details</a>
+						@if (Context.User.Identity.Name != null)
+						{
+							<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-user="@User" class="btn btn-success">
+								Add To Cart
+							</a>
+						}
+						else
+						{
+							<a asp-controller="Home" asp-action="Login" style="color: grey;">
+								Log in
+							</a>
+						}
+					</div>
+			  </div>
+			</div>
+		</div>
+	}
+</div>
+

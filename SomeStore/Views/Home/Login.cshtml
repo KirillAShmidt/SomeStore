@@ -1,0 +1,35 @@
+﻿@model IResult
+
+@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Login";
+    var name = Context.User.Identity.Name;
+}
+
+<body>
+    @if(Model != null){
+        <h1>@Model.ToString()</h1>
+    }
+
+    @if (name == null){
+        <h2>Log in Form</h2>
+        <form method='post' asp-action="UserLogin">
+            <p>
+                <label>Login</label><br />
+                <input name='login' />
+            </p>
+            <p>
+                <label>Password</label><br />
+                <input type='password' name='password' />
+            </p>
+                <input type='submit' value='Submit' class="btn btn-primary"/>
+        </form>
+        <a asp-action="AddNewUser" class="btn btn-success" style="margin-top: 1%;">Add New User</a>
+    }
+    else{
+        <h2>@name</h2>
+        <a asp-controller="Home" asp-action="Logout" class="btn btn-danger">Logout</a>
+    }
+
+    
+</body>
